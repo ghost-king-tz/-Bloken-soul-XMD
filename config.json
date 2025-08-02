@@ -1,1 +1,12 @@
-
+{
+  "ownerName": "𝔅𝔯𝔬𝔨𝔢𝔫 𝕊𝕠𝕦𝕝-XMD",
+  "ownerNumber": "+255719632816",
+  "botName": "𝔅𝔯𝔬𝔨𝔢𝔫 𝕊𝕠𝕦𝕝-XMD",
+  "sessionFile": "./session.json",
+  "licenseFile": "./license.key",
+  "prefix": ".",
+  "language": "en",
+  "menuStyle": "slide",
+  "blockedNumbers": [],
+  "premiumUsers": ["+255719632816"]
+}
