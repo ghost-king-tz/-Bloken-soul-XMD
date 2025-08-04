@@ -1,46 +1,68 @@
-// index.js
+const { default: makeWASocket, useMultiFileAuthState, DisconnectReason } = require('@whiskeysockets/baileys');
+const { Boom } = require('@hapi/boom');
+const fs = require('fs');
+const pino = require('pino');
+const { exec } = require('child_process');
+const path = require('path');
 
-const { Boom } = require('@hapi/boom'); const makeWASocket = require('@whiskeysockets/baileys').default; const { useSingleFileAuthState } = require('@whiskeysockets/baileys'); const fs = require('fs'); const config = require('./config.json'); const commands = require('./commands'); const menu = require('./menu'); const licenseCheck = require('./license');
+// Load config
+const config = require('./config.json');
+const menu = require('./menu/menu');
 
-// License protection if (!licenseCheck('+255719632816')) { console.log('This bot is locked to the owner number only.'); process.exit(1); }
+// ALIVE VIDEO & AUDIO FILE
+const aliveVideo = fs.readFileSync('./media/alive.mp4');
+const aliveAudio = fs.readFileSync('./media/alive.mp3');
 
-const { state, saveState } = useSingleFileAuthState('./session.json');
+// Start bot
+async function startBot() {
+    const { state, saveCreds } = await useMultiFileAuthState('session');
 
-async function startBot() { const sock = makeWASocket({ auth: state, printQRInTerminal: true, });
+    const sock = makeWASocket({
+        auth: state,
+        printQRInTerminal: true,
+        logger: pino({ level: 'silent' }),
+        browser: ['Broken Soul-XMD', 'Safari', '1.0.0'],
+    });
 
-sock.ev.on('creds.update', saveState);
+    sock.ev.on('creds.update', saveCreds);
 
-sock.ev.on('messages.upsert', async ({ messages }) => {
-    const msg = messages[0];
-    if (!msg.message || msg.key.fromMe) return;
+    sock.ev.on('messages.upsert', async ({ messages }) => {
+        const msg = messages[0];
+        if (!msg.message || msg.key.fromMe) return;
 
-    const text = msg.message.conversation || msg.message.extendedTextMessage?.text;
-    const sender = msg.key.remoteJid;
+        const from = msg.key.remoteJid;
+        const text = msg.message.conversation || msg.message.extendedTextMessage?.text || '';
 
-    if (!text) return;
+        if (text.toLowerCase() === 'alive') {
+            await sock.sendMessage(from, {
+                video: aliveVideo,
+                gifPlayback: true,
+                caption: `╭─────────────◆\n│ *🤖 𝔅𝔯𝔬𝔨𝔢𝔫 𝕊𝕠𝕦𝕝-XMD Alive!*\n│\n│ 👑 Owner: ${config.ownerName}\n│ 📞 Contact: ${config.ownerNumber}\n╰─────────────◆`
+            });
 
-    if (text === '.menu') {
-        await sock.sendMessage(sender, { text: menu() });
-    }
-
-    if (text.startsWith('.')) {
-        const [cmd, ...args] = text.slice(1).split(' ');
-        if (commands[cmd]) {
-            await commands[cmd](sock, msg, args);
+            await sock.sendMessage(from, {
+                audio: aliveAudio,
+                mimetype: 'audio/mp4',
+                ptt: true,
+            });
         }
-    }
-});
 
-sock.ev.on('connection.update', (update) => {
-    const { connection, lastDisconnect } = update;
-    if (connection === 'close') {
-        const reason = new Boom(lastDisconnect?.error)?.output?.statusCode;
-        if (reason !== 401) startBot();
-    }
-});
+        // Add more commands here if needed
+    });
 
+    sock.ev.on('connection.update', async (update) => {
+        const { connection, lastDisconnect } = update;
+        if (connection === 'close') {
+            const reason = new Boom(lastDisconnect.error)?.output?.statusCode;
+            if (reason === DisconnectReason.loggedOut) {
+                console.log('Logged out. Delete session and restart.');
+                fs.rmSync('./session', { recursive: true, force: true });
+                process.exit(0);
+            } else {
+                startBot(); // reconnect
+            }
+        }
+    });
 }
 
 startBot();
-
-
