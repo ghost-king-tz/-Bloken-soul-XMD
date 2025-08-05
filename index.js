@@ -1,44 +1,30 @@
-const { default: makeWASocket, useMultiFileAuthState, DisconnectReason } = require('@whiskeysockets/baileys');
-const { Boom } = require('@hapi/boom');
-const fs = require('fs');
-const { exec } = require('child_process');
-const config = require('./config.json');
+require('dotenv').config();
+const { default: makeWASocket, useMultiFileAuthState } = require("@whiskeysockets/baileys");
+const { DisconnectReason, makeInMemoryStore } = require("@whiskeysockets/baileys");
+const P = require("pino");
 
-async function startBot() {
-  const { state, saveCreds } = await useMultiFileAuthState('session');
+const startBot = async () => {
+  const { state, saveCreds } = await useMultiFileAuthState("session");
+
   const sock = makeWASocket({
-    printQRInTerminal: true,
+    logger: P({ level: "silent" }),
     auth: state,
+    printQRInTerminal: true,
   });
 
-  sock.ev.on('creds.update', saveCreds);
+  sock.ev.on("creds.update", saveCreds);
 
-  sock.ev.on('connection.update', (update) => {
-    const { connection, lastDisconnect } = update;
-    if (connection === 'close') {
-      const shouldReconnect = lastDisconnect?.error?.output?.statusCode !== DisconnectReason.loggedOut;
-      if (shouldReconnect) {
-        startBot();
-      }
-    } else if (connection === 'open') {
-      console.log('✅ BOT Connected!');
-      sock.sendMessage(config.ownerNumber + '@s.whatsapp.net', {
-        text: `*Owner ${config.ownerName} connected successfully. Press menu to see all commands.*`,
-      });
-    }
-  });
-
-  sock.ev.on('messages.upsert', async ({ messages, type }) => {
+  sock.ev.on("messages.upsert", async ({ messages }) => {
     const msg = messages[0];
     if (!msg.message) return;
-    const text = msg.message.conversation || msg.message.extendedTextMessage?.text;
 
-    // Command handling
-    if (text === 'menu') {
-      const menu = fs.readFileSync('./menu/menu.txt', 'utf-8');
-      await sock.sendMessage(msg.key.remoteJid, { text: menu }, { quoted: msg });
+    const type = Object.keys(msg.message)[0];
+    const body = (type === 'conversation') ? msg.message.conversation : '';
+    
+    if (body === "!alive") {
+      await sock.sendMessage(msg.key.remoteJid, { text: "✅ Bot is alive and running!" }, { quoted: msg });
     }
   });
-}
+};
 
 startBot();
