@@ -1,16 +1,14 @@
 {
-  "name": "broken-soul-xmd",
+  "name": "my-bot",
   "version": "1.0.0",
-  "description": "A WhatsApp bot using Baileys and Node.js, with premium features and session locking.",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
-  "keywords": ["whatsapp", "bot", "baileys", "premium", "heroku", "render", "railway"],
-  "author": "𝔅𝔯𝔬𝔨𝔢𝔫 𝕊𝕠𝕦𝕝-XMD",
-  "license": "MIT",
   "dependencies": {
-    "@whiskeysockets/baileys": "^6.6.0",
-    "dotenv": "^16.4.5"
+    "@adiwajshing/baileys": "^6.7.5",
+    "@hapi/boom": "^10.0.1",
+    "pino": "^9.0.0",
+    "dotenv": "^16.3.1"
   }
 }
