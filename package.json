@@ -4,9 +4,10 @@
   "description": "WhatsApp bot - Broken Soul-XMD",
   "main": "index.js",
   "scripts": {
+    "fix": "npm audit fix --force",
     "start": "node index.js"
   },
-  "author": "𝔅𝔯𝔬𝔨𝔢𝔫 𝕊𝕠𝕦𝕝-XMD",
+  "author": "𝔅𝔯𝔬𝔨𝔢𝔫 𝕊𝕠𝕦𝕩-XMD",
   "license": "MIT",
   "dependencies": {
     "@adiwajshing/baileys": "^5.0.0",
@@ -19,5 +20,4 @@
   "engines": {
     "node": ">=18.0.0"
   }
-}"scripts": {
-  "fix": "npm audit fix --force
+}
