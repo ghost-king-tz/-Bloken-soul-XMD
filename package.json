@@ -19,4 +19,5 @@
   "engines": {
     "node": ">=18.0.0"
   }
-}
+}"scripts": {
+  "fix": "npm audit fix --force
