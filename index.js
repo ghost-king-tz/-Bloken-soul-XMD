@@ -32,7 +32,7 @@ async function startBot() {
     })
 
     if (!sock.authState.creds.registered) {
-        const phoneNumber = '255719632816' // ← weka namba yako hapa
+        const phoneNumber = '255613420746' // ← weka namba yako hapa
         const code = await sock.requestPairingCode(phoneNumber)
         console.log("🔑 Pairing Code:", code)
         console.log("👉 WhatsApp > Linked Devices > Link with phone number")
