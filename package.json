@@ -1,23 +1,10 @@
 {
-  "name": "broken-soul-xmd",
+  "name": "your-bot-name",
   "version": "1.0.0",
-  "description": "WhatsApp bot - Broken Soul-XMD",
   "main": "index.js",
-  "scripts": {
-    "fix": "npm audit fix --force",
-    "start": "node index.js"
-  },
-  "author": "𝔅𝔯𝔬𝔨𝔢𝔫 𝕊𝕠𝕦𝕩-XMD",
-  "license": "MIT",
   "dependencies": {
-    "@adiwajshing/baileys": "^5.0.0",
-    "dotenv": "^16.3.1",
-    "moment": "^2.29.4",
-    "node-fetch": "^3.3.2",
-    "axios": "^1.6.2",
-    "chalk": "^5.3.0"
-  },
-  "engines": {
-    "node": ">=18.0.0"
+    "@whiskeysockets/baileys": "^6.5.0",
+    "pino": "^8.0.0",
+    "dotenv": "^16.0.0"
   }
 }
