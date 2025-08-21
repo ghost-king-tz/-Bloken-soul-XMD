@@ -31,5 +31,14 @@ async function startBot() {
         }
     });
 
-    // PAIRING CODE METHOD
+    // PAIRING CODE METHODconsole.log("🔗 Bot not registered. Scan QR code or pair it.");
+    }
+}
+
+startBoconsole.log("🔗 Bot not registered. Scan QR code or pair it.");
+    }
+}
+
+startBot();
+
     if (!sock.authState.creds.registered) {
