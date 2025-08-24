@@ -1,93 +1,85 @@
-const { default: makeWASocket, useMultiFileAuthState, DisconnectReason } = require('@whiskeysockets/baileys');
-const { Boom } = require('@hapi/boom');
-const pino = require('pino');
-const qrcode = require('qrcode-terminal');
-require('dotenv').config();
+const {
+    default: makeWASocket,
+    useMultiFileAuthState,
+    DisconnectReason,
+    makeCacheableSignalKeyStore,
+    fetchLatestBaileysVersion,
+} = require("@whiskeysockets/baileys");
+const P = require("pino");
+const fs = require("fs");
+const { Boom } = require("@hapi/boom");
+const settings = require("./settings.js");
+
+const commands = new Map(); // commands zote zitahifadhiwa hapa
+
+// Load commands from /commands folder
+fs.readdirSync("./commands").forEach(file => {
+    if (file.endsWith(".js")) {
+        const command = require(`./commands/${file}`);
+        commands.set(command.name, command);
+    }
+});
 
 async function startBot() {
-    const { state, saveCreds } = await useMultiFileAuthState(process.env.SESSION_PATH || './session');
+    const { state, saveCreds } = await useMultiFileAuthState(settings.sessionPath);
+    const { version } = await fetchLatestBaileysVersion();
 
     const sock = makeWASocket({
-        logger: pino({ level: 'silent' }),
-        printQRInTerminal: false, // tuta-print kwa qrcode-terminal badala yake
-        auth: state
+        version,
+        logger: P({ level: "silent" }),
+        printQRInTerminal: false,
+        auth: {
+            creds: state.creds,
+            keys: makeCacheableSignalKeyStore(state.keys, P({ level: "silent" })),
+        },
+        browser: [settings.botName, "Chrome", "1.0.0"],
     });
 
-    // save credentials
-    sock.ev.on('creds.update', saveCreds);
+    sock.ev.on("creds.update", saveCreds);
 
-    // connection updates
-    sock.ev.on('connection.update', async (update) => {
-        const { connection, lastDisconnect, qr } = update;
+    sock.ev.on("connection.update", async (update) => {
+        const { connection, lastDisconnect } = update;
 
-        if (qr) {
-            console.log("🔗 QR Code: Scan hapa chini 👇");
-            qrcode.generate(qr, { small: true });
+        if (connection === "open") {
+            console.log(`✅ ${settings.botName} imeunganishwa kama: ${sock.user.id}`);
         }
 
-        if (connection === 'open') {
-            console.log("✅ Bot connected as", sock.user.id);
-        }
-
-        if (connection === 'close') {
-            const reason = new Boom(lastDisconnect?.error)?.output?.statusCode;
-            if (reason === DisconnectReason.loggedOut) {
-                console.log("❌ Logged out. Delete session and restart.");
-            } else {
-                console.log("⚠️ Reconnecting...");
+        if (connection === "close") {
+            const reason = new Boom(lastDisconnect?.error)?.output.statusCode;
+            console.log("❌ Connection closed:", reason);
+            if (reason !== DisconnectReason.loggedOut) {
                 startBot();
             }
         }
+
+        // Pairing code system
+        if (!sock.authState.creds.registered) {
+            const code = await sock.requestPairingCode(settings.ownerNumber);
+            console.log(`👉 Pairing Code kwa namba ${settings.ownerNumber}: ${code}`);
+        }
     });
 
-    // message handler
-    sock.ev.on('messages.upsert', async (m) => {
-        const msg = m.messages[0];
-        if (!msg.message) return;
+    // Handler wa messages
+    sock.ev.on("messages.upsert", async (msgUpdate) => {
+        const msg = msgUpdate.messages[0];
+        if (!msg.message || msg.key.fromMe) return;
 
         const from = msg.key.remoteJid;
-        const body = msg.message.conversation ||
-                     msg.message.extendedTextMessage?.text ||
-                     msg.message.imageMessage?.caption ||
-                     "";
+        const body = msg.message.conversation || msg.message.extendedTextMessage?.text || "";
 
-        console.log("📩 Message from", from, ":", body);
+        if (!body.startsWith(settings.prefix)) return;
 
-        // Commands
-        switch (body.toLowerCase()) {
-            case "!menu":
-                await sock.sendMessage(from, { text: 
-`🌀 *Broken Soul XMD MENU* 🌀
+        const args = body.slice(settings.prefix.length).trim().split(/ +/);
+        const commandName = args.shift().toLowerCase();
 
-✨ !menu - show this menu
-✨ !ping - test bot
-✨ !owner - owner info
-✨ !ai <text> - ask AI
-✨ !group - group info
-
-╰─❖ ᴮʳᵒᵏᵉⁿ ˢᵒᵘˡ ˣᴹᴰ ❖─╯` 
-                });
-                break;
-
-            case "!ping":
-                await sock.sendMessage(from, { text: "🏓 Pong! Bot is alive ✅" });
-                break;
-
-            case "!owner":
-                await sock.sendMessage(from, { text: "👑 Owner: Broken Soul\n📞 +255719632816" });
-                break;
-
-            case "!group":
-                await sock.sendMessage(from, { text: "📌 Group commands coming soon! (kick, add, tagall...)" });
-                break;
-
-            default:
-                // simple AI response (demo)
-                if (body.startsWith("!ai ")) {
-                    const question = body.slice(4);
-                    await sock.sendMessage(from, { text: `🤖 AI says: ${question}? Hmmm... that's interesting!` });
-                }
-                break;
+        const command = commands.get(commandName);
+        if (command) {
+            try {
+                await command.execute(sock, msg, args, settings);
+            } catch (err) {
+                console.error(err);
+                await sock.sendMessage(from, { text: "⚠️ Kulikuwa na error kwenye command hii." });
+            }
         }
     });
 }
