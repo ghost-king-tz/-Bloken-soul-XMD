@@ -1,7 +1,6 @@
 ![TypingSVG](https://readme-typing-svg.demolab.com?font=Source+Code+Pro&size=40&duration=3000&pause=700&color=00CED1&center=true&vCenter=true&width=1000&height=90&lines=ＢＲＯＫＥＮ－ＳＯＵＬ＋ＸＭＤ:+ＴＨＥ+ＵＬＴＩＭＡＴＥ+ＰＡＮＥＬ+ＢＯＴ;🚀+ＦＡＳＴ,+ＳＴＡＢＬＥ+＆+ＰＯＷＥＲＦＵＬ+🚀;🔒+ＣＯＤＥ－ＰＡＩＲＩＮＧ+＆+ＳＥＣＵＲＥ+ＣＯＮＮＥＣＴＩＯＮ+🔒;🤖+ＤＥＶ+ＢＹ+𝔅𝔯𝔬𝔨𝔢𝔫+𝕊𝕠𝕦𝕝+🤖)
 
-
-![https://postimg.cc/JstBmFDV](https://postimg.cc/JstBmFDV)
+![Bot Preview](https://i.postimg.cc/JstBmFDV/image.png)
 
 ---
 
@@ -9,7 +8,7 @@
 
 ```bash
 git clone https://github.com/ghost-king-tz/-Bloken-soul-XMD.git
-cd -Bloken-soul
+cd Bloken-soul-XMD
 ```
 
 ---
@@ -26,7 +25,7 @@ npm install
 
 - Open `settings.js` or `.env`  
 - Add your WhatsApp number  
-- Pair code will be sent directly — no QR required  
+- Pair code will be sent directly — *no QR required*
 
 ---
 
@@ -45,15 +44,15 @@ Bot will auto-send pairing code to your WhatsApp.
 <div align="center">
   <a href="https://bot-hosting.net/">
     <img src="https://img.shields.io/badge/Deploy%20Broken%20Soul%20XMD-Panel-blue?style=for-the-badge&logo=vercel" width="250" />
-  </a></div>
+  </a>
+</div>
 
 ---
 
 💎 Bot Features
 
 - 💬 AI Chat with Smart Reply  
-- 🧼 Antilink System  
-- 🎶 Music & Video Download  
+- 🧼 Antilink System- 🎶 Music & Video Download  
 - 👀 Auto Status Viewer  
 - 📡 Ping / Alive Checks  
 - ⚡ Fast + Secure Code-Pairing  
@@ -64,17 +63,17 @@ Bot will auto-send pairing code to your WhatsApp.
 👑 Developer Info
 
 - *Bot Name:* Broken Soul XMD  
-- *Owner:* 𝔅𝔯𝔬𝔨𝔢𝔫 𝕊𝕠𝕦𝕝  
+- *Owner:* 𝔅𝔯𝔬𝔨𝔢𝔫 𝕊𝕠𝕦𝕩  
 - *Repo:* [GitHub](https://github.com/ghost-king-tz/-Bloken-soul-XMD)
-
----
-
-🤝 Support
-
-Open an issue or contact 𝔅𝔯𝔬𝔨𝔢𝔫 𝕊𝕠𝕦𝕝 directly for any help.
 
 ---
 
 ⭐ Enjoy & Share
 
-If you love this bot, star the repo and share the power!
+If you love this bot, *star the repo* and share the power!
+
+---
+
+> 💬 *Crafted with heart by* *ＢＲＯＫＥＮ－ＳＯＵＬ＋ＸＭＤ*  
+> 🚀 *Built for speed, stability, and smart automation*  
+> 🤖 *Unleash the ultimate panel bot experience*
