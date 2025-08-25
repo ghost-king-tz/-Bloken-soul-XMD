@@ -1,87 +1,58 @@
 const {
-    default: makeWASocket,
-    useMultiFileAuthState,
-    DisconnectReason,
-    makeCacheableSignalKeyStore,
-    fetchLatestBaileysVersion,
+  default: makeWASocket,
+  useMultiFileAuthState,
+  fetchLatestBaileysVersion,
+  makeCacheableSignalKeyStore,
+  DisconnectReason
 } = require("@whiskeysockets/baileys");
+const { Boom } = require("@hapi/boom");
 const P = require("pino");
 const fs = require("fs");
-const { Boom } = require("@hapi/boom");
-const settings = require("./settings.js");
-
-const commands = new Map(); // commands zote zitahifadhiwa hapa
-
-// Load commands from /commands folder
-fs.readdirSync("./commands").forEach(file => {
-    if (file.endsWith(".js")) {
-        const command = require(`./commands/${file}`);
-        commands.set(command.name, command);
-    }
-});
 
 async function startBot() {
-    const { state, saveCreds } = await useMultiFileAuthState(settings.sessionPath);
-    const { version } = await fetchLatestBaileysVersion();
+  const { state, saveCreds } = await useMultiFileAuthState('./session');
+  const { version } = await fetchLatestBaileysVersion();
 
-    const sock = makeWASocket({
-        version,
-        logger: P({ level: "silent" }),
-        printQRInTerminal: false,
-        auth: {
-            creds: state.creds,
-            keys: makeCacheableSignalKeyStore(state.keys, P({ level: "silent" })),
-        },
-        browser: [settings.botName, "Chrome", "1.0.0"],
-    });
+  const sock = makeWASocket({
+    version,
+    logger: P({ level: "silent" }),
+    auth: {
+      creds: state.creds,
+      keys: makeCacheableSignalKeyStore(state.keys, P({ level: "silent" }))
+    },
+    printQRInTerminal: false,
+    browser: ["Nezha MD", "Safari", "1.0.0"]
+  });
 
-    sock.ev.on("creds.update", saveCreds);
+  sock.ev.on("creds.update", saveCreds);
 
-    sock.ev.on("connection.update", async (update) => {
-        const { connection, lastDisconnect } = update;
+  sock.ev.on("connection.update", async (update) => {
+    const { connection, lastDisconnect } = update;
 
-        if (connection === "open") {
-            console.log(`✅ ${settings.botName} imeunganishwa kama: ${sock.user.id}`);
-        }
+    if (connection === "open") {
+      console.log("✅ Bot connected as:", sock.user.id);
+    }
 
-        if (connection === "close") {
-            const reason = new Boom(lastDisconnect?.error)?.output.statusCode;
-            console.log("❌ Connection closed:", reason);
-            if (reason !== DisconnectReason.loggedOut) {
-                startBot();
-            }
-        }
+    if (connection === "close") {
+      const reason = new Boom(lastDisconnect?.error)?.output.statusCode;console.log("❌ Connection closed. Reason:", reason);
 
-        // Pairing code system
-        if (!sock.authState.creds.registered) {
-            const code = await sock.requestPairingCode(settings.ownerNumber);
-            console.log(`👉 Pairing Code kwa namba ${settings.ownerNumber}: ${code}`);
-        }
-    });
+      if (reason !== DisconnectReason.loggedOut) {
+        startBot(); // retry auto
+      } else {
+        console.log("Session imefutwa. Tafadhali fanya pairing tena.");
+      }
+    }
 
-    // Handler wa messages
-    sock.ev.on("messages.upsert", async (msgUpdate) => {
-        const msg = msgUpdate.messages[0];
-        if (!msg.message || msg.key.fromMe) return;
-
-        const from = msg.key.remoteJid;
-        const body = msg.message.conversation || msg.message.extendedTextMessage?.text || "";
-
-        if (!body.startsWith(settings.prefix)) return;
-
-        const args = body.slice(settings.prefix.length).trim().split(/ +/);
-        const commandName = args.shift().toLowerCase();
-
-        const command = commands.get(commandName);
-        if (command) {
-            try {
-                await command.execute(sock, msg, args, settings);
-            } catch (err) {
-                console.error(err);
-                await sock.sendMessage(from, { text: "⚠️ Kulikuwa na error kwenye command hii." });
-            }
-        }
-    });
+    // Pairing code
+    if (!sock.authState.creds.registered) {
+      const pairingNumber = "255719632816"; // weka namba yako ya WhatsApp bila "+"
+      const code = await sock.requestPairingCode(pairingNumber);
+      console.log(`📲 Pairing code for pairingNumber:{code}`);
+    }
+  });
 }
 
 startBot();
+
+
+          
