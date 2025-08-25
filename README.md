@@ -1,6 +1,6 @@
 ![TypingSVG](https://readme-typing-svg.demolab.com?font=Source+Code+Pro&size=40&duration=3000&pause=700&color=00CED1&center=true&vCenter=true&width=1000&height=90&lines=BLOKEN+ＳＯＵＬ:;🚀+ＦＡＳＴ,+ＳＴＡＢＬＥ+＆+ＰＯＷＥＲＦＵＬ+🚀;🔒+ＣＯＤＥ－ＰＡＩＲＩＮＧ+🔒;🤖+ＤＥＶ+ＢＹ+𝔅𝔯𝔬𝔨𝔢𝔫+𝕊𝕠𝕦𝕝+🤖)
 
-![Bot Preview](<img src="https://i.postimg.cc/JstBmFDV/image.png)
+<img src="https://i.postimg.cc/JstBmFDV/image.png" width="100%" style="display: block; margin: auto;" />
 
 ---
 
@@ -43,8 +43,7 @@ Bot will auto-send pairing code to your WhatsApp.
 
 <div align="center">
   <a href="https://bot-hosting.net/">
-    <img src="https://img.shields.io/badge/Deploy%20Broken%20Soul%20XMD-Panel-blue?style=for-the-badge&logo=vercel" width="250" />
-  </a>
+    <img src="https://img.shields.io/badge/Deploy%20Broken%20Soul%20XMD-Panel-blue?style=for-the-badge&logo=vercel" width="250" /></a>
 </div>
 
 ---
@@ -52,7 +51,8 @@ Bot will auto-send pairing code to your WhatsApp.
 💎 Bot Features
 
 - 💬 AI Chat with Smart Reply  
-- 🧼 Antilink System- 🎶 Music & Video Download  
+- 🧼 Antilink System  
+- 🎶 Music & Video Download  
 - 👀 Auto Status Viewer  
 - 📡 Ping / Alive Checks  
 - ⚡ Fast + Secure Code-Pairing  
