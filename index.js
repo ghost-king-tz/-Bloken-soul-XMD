@@ -45,15 +45,24 @@ async function startBot() {
         const { connection, lastDisconnect } = update;
 
         if (connection === "open") {
-            console.log(`✅ ${settings.botName} is connected as: ${sock.user.id}`);
+            if (sock.user) {
+                console.log(`✅ ${settings.botName} is connected as: ${sock.user.id}`);
+            } else {
+                console.log(`✅ ${settings.botName} is connected.`);
+            }
         }
 
         if (connection === "close") {
             // Reconnect if the connection is closed for any reason other than a deliberate logout
-            const reason = new Boom(lastDisconnect?.error)?.output?.statusCode;
+            let reason;
+            try {
+                reason = new Boom(lastDisconnect?.error)?.output?.statusCode;
+            } catch {
+                reason = lastDisconnect?.error?.statusCode || "unknown";
+            }
             console.log("❌ Connection closed:", reason);
             if (reason !== DisconnectReason.loggedOut) {
-                startBot();
+                setTimeout(startBot, 2000); // avoid stack overflow, add delay
             } else {
                 console.log("Logged out. Please re-run the bot to get a new pairing code.");
             }
@@ -67,13 +76,20 @@ async function startBot() {
         if (!msg.message || msg.key.fromMe) return;
 
         const from = msg.key.remoteJid;
-        const body = msg.message.conversation || msg.message.extendedTextMessage?.text || "";
+        let body = "";
+        if (msg.message.conversation) {
+            body = msg.message.conversation;
+        } else if (msg.message.extendedTextMessage && msg.message.extendedTextMessage.text) {
+            body = msg.message.extendedTextMessage.text;
+        } else if (msg.message.imageMessage && msg.message.imageMessage.caption) {
+            body = msg.message.imageMessage.caption;
+        }
 
         // Check if the message starts with the defined prefix
         if (!body.startsWith(settings.prefix)) return;
 
         const args = body.slice(settings.prefix.length).trim().split(/ +/);
-        const commandName = args.shift().toLowerCase();
+        const commandName = args.shift()?.toLowerCase();
 
         const command = commands.get(commandName);
         if (command) {
@@ -87,7 +103,7 @@ async function startBot() {
     });
 
     // Request pairing code if not registered
-    if (!sock.authState.creds.registered) {
+    if (!state.creds.registered) { // use state.creds instead of sock.authState
         try {
             const code = await sock.requestPairingCode(settings.ownerNumber);
             console.log(`👉 Pairing Code for number ${settings.ownerNumber}: ${code}`);
