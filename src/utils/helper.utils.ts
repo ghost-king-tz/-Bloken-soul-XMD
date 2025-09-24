@@ -1,10 +1,19 @@
-import makeWASocket, { ConnectionState, DisconnectReason, fetchLatestBaileysVersion, MessageUpsertType, useMultiFileAuthState, WAMessage, WASocket } from '@adiwajshing/baileys'
+import makeWASocket, {
+    ConnectionState,
+    DisconnectReason,
+    fetchLatestBaileysVersion,
+    MessageUpsertType,
+    useMultiFileAuthState,
+    WAMessage,
+    WASocket,
+    downloadContentFromMessage,
+    proto,
+} from '@adiwajshing/baileys'
 import { CommandHandler } from '@handlers/command.handler'
 import qrcode from 'qrcode'
 import P from 'pino'
 import { Boom } from '@hapi/boom'
 import chalk from 'chalk'
-import { downloadContentFromMessage, proto } from '@adiwajshing/baileys'
 import fetch from 'node-fetch'
 import toMs from 'ms'
 import fs, { createReadStream, unlinkSync } from 'fs'
@@ -15,9 +24,12 @@ import BodyForm from 'form-data'
 import Bluebird from 'bluebird'
 import { randomBytes } from 'crypto'
 import { GlobSync } from 'glob'
-const moment = require('moment')
+import moment from 'moment'
 
-export const downloadMedia = async (msg: proto.IMessage): Promise<Buffer> => {
+/* =============================
+   DOWNLOAD MEDIA
+============================= */
+export const downloadMedia = async (msg: proto.IMessage): Promise<Buffer | null> => {
     try {
         const type = Object.keys(msg)[0]
         const mimeMap = {
@@ -38,6 +50,9 @@ export const downloadMedia = async (msg: proto.IMessage): Promise<Buffer> => {
     }
 }
 
+/* =============================
+   UPLOADER API
+============================= */
 export const uploaderAPI = (fileData, type) =>
     new Bluebird(async (resolve, reject) => {
         const postFile = async (fileData, type) => {
@@ -47,7 +62,6 @@ export const uploaderAPI = (fileData, type) =>
             const form = new BodyForm()
             await fs.promises.writeFile(filePath, fileData)
 
-            // Start Uploading
             if (type === 'telegraph') {
                 form.append('file', createReadStream(filePath))
                 const { data } = await axios.post('https://telegra.ph/upload', form, {
@@ -55,14 +69,28 @@ export const uploaderAPI = (fileData, type) =>
                     headers: { ...form.getHeaders() },
                 })
                 if (data.error) reject(data.error)
-                return { host: 'telegraph', data: { name: filePath.replace('src/tmp/', ''), url: 'https://telegra.ph' + data[0].src, size: formatSize(fileData.length) } }
+                return {
+                    host: 'telegraph',
+                    data: {
+                        name: filePath.replace('src/tmp/', ''),
+                        url: 'https://telegra.ph' + data[0].src,
+                        size: formatSize(fileData.length),
+                    },
+                }
             } else if (type === 'uguu') {
                 form.append('files[]', createReadStream(filePath))
                 const { data } = await axios.post('https://uguu.se/upload.php', form, {
                     responseType: 'json',
                     headers: { ...form.getHeaders() },
                 })
-                return { host: 'uguu', data: { url: data.files[0].url, name: data.files[0].name, size: formatSize(parseInt(data.files[0].size)) } }
+                return {
+                    host: 'uguu',
+                    data: {
+                        url: data.files[0].url,
+                        name: data.files[0].name,
+                        size: formatSize(parseInt(data.files[0].size)),
+                    },
+                }
             } else if (type === 'anonfiles') {
                 form.append('file', createReadStream(filePath))
                 const { data } = await axios.post('https://api.anonfiles.com/upload', form, {
@@ -70,18 +98,30 @@ export const uploaderAPI = (fileData, type) =>
                     headers: { ...form.getHeaders() },
                 })
                 if (!data.status) reject(data.error.message)
-                return { host: 'anonfiles', data: { url: data.data.file.url.short, name: data.data.file.metadata.name, size: data.data.file.metadata.size.readable } }
+                return {
+                    host: 'anonfiles',
+                    data: {
+                        url: data.data.file.url.short,
+                        name: data.data.file.metadata.name,
+                        size: data.data.file.metadata.size.readable,
+                    },
+                }
             }
         }
         try {
             const result = await postFile(fileData, type)
-            fs.unlinkSync(join('src', 'tmp', result.data.name))
+            if (result?.data?.name) {
+                fs.unlinkSync(join('src', 'tmp', result.data.name))
+            }
             resolve(result)
         } catch (e) {
             reject(e)
         }
     })
 
+/* =============================
+   MEME TEXT
+============================= */
 export const memeText = (imageData, top, bottom) =>
     new Bluebird(async (resolve, reject) => {
         try {
@@ -92,26 +132,26 @@ export const memeText = (imageData, top, bottom) =>
 
             let result = `https://api.memegen.link/images/custom/${topText}/${bottomText}.png?background=${imageUrl}`
             let binResult = await getBuffer(result)
-            console.log(binResult)
             resolve(binResult)
-            binResult = null
         } catch (e) {
             reject(e)
         }
     })
 
+/* =============================
+   HELPERS
+============================= */
 export const getBuffer = async (url: string) => {
     const res = await fetch(url, { headers: { 'User-Agent': 'okhttp/4.5.0' }, method: 'GET' })
     if (!res.ok) throw 'Error while fetching data'
-    const buff = res.buffer()
-    if (buff) return buff
+    const buff = await res.buffer()
+    return buff
 }
 
 export const getJson = async (url: string) => {
     const res = await fetch(url, { headers: { 'User-Agent': 'okhttp/4.5.0' }, method: 'GET' })
     if (!res.ok) throw 'Error while fetching data'
-    let json = res.json()
-    if (json) return json
+    return res.json()
 }
 
 export const getRandom = (ext) => {
@@ -129,16 +169,10 @@ export const post = async (url: string, formdata: {}) => {
         body: Object.keys(formdata)
             .map((key) => `${key}=${encodeURIComponent(formdata[key])}`)
             .join('&'),
-    })
-        .then((res) => res.json())
-        .then((res) => {
-            return res
-        })
+    }).then((res) => res.json())
 }
 
-export const sleep = async (ms) => {
-    return new Promise((resolve) => setTimeout(resolve, ms))
-}
+export const sleep = async (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
 export const formatSize = sizeFormatter({
     std: 'JEDEC',
@@ -148,7 +182,7 @@ export const formatSize = sizeFormatter({
 })
 
 export const calculatePing = function (timestamp, now) {
-    return moment.duration(now - moment(timestamp * 1000)).asSeconds()
+    return moment.duration(now - timestamp * 1000).asSeconds()
 }
 
 export const ttparse = (text: string) => {
@@ -158,7 +192,7 @@ export const ttparse = (text: string) => {
 }
 
 export const ytparse = (text: string) => {
-    const rex = /http(?:s?):\/\/(?:www\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([\w\-\_]*)(&(amp;)?‌​[\w\?‌​=]*)?/gi
+    const rex = /http(?:s?):\/\/(?:www\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([\w\-\_]*)(&(amp;)?‌[\w\?‌=]*)?/gi
     const url = text.match(rex)
     return { url: url == null ? '' : url[0] }
 }
@@ -170,8 +204,8 @@ export const waparse = (text: string) => {
 }
 
 export const toTime = (time: number) => {
-    let result: number = toMs(time - Date.now(), { long: true })
-    return result
+    let ms = time - Date.now()
+    return moment.duration(ms).humanize() // example: "in 2 minutes"
 }
 
 export function makeid(length) {
@@ -189,7 +223,7 @@ export const postJson = async (url, formdata) => {
         const res = await axios.post(url, formdata, {
             headers: {
                 'Content-Type': `multipart/form-data; boundary=${formdata._boundary}`,
-                'User-Agent': 'Mozilla/5.0 (Linux; Android 10; SM-A205U) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.105 Mobile Safari/537.36.',
+                'User-Agent': 'Mozilla/5.0',
             },
         })
         return res.data
@@ -204,24 +238,30 @@ export const timeFormat = (seconds) => {
     var h = Math.floor((seconds % (3600 * 24)) / 3600)
     var m = Math.floor((seconds % 3600) / 60)
     var s = Math.floor(seconds % 60)
-    var dDisplay = d > 0 ? d + (d == 1 ? ' Days, ' : ' Days, ') : ''
-    var hDisplay = h > 0 ? h + (h == 1 ? ' Hours, ' : ' Hours, ') : ''
-    var mDisplay = m > 0 ? m + (m == 1 ? ' Minute, ' : ' Minute, ') : ''
-    var sDisplay = s > 0 ? s + (s == 1 ? ' Secs, ' : ' Secs ') : ''
+    var dDisplay = d > 0 ? d + ' Days, ' : ''
+    var hDisplay = h > 0 ? h + ' Hours, ' : ''
+    var mDisplay = m > 0 ? m + ' Minutes, ' : ''
+    var sDisplay = s > 0 ? s + ' Secs' : ''
     return dDisplay + hDisplay + mDisplay + sDisplay
 }
 
 export const clearSession = () => {
-    new GlobSync('session/*-session.json').found.map((v) => {
-        unlinkSync(v)
+    new GlobSync('session/*-session.json').found.forEach((v) => {
+        try {
+            unlinkSync(v)
+        } catch {}
     })
 }
 
+/* =============================
+   BOT SESSION HANDLER
+============================= */
 export const menjadiBot = async (sock: WASocket, jid: string): Promise<WASocket> => {
     const filename = `./session/${jid.split('@')[0]}-session.json`
     const { state, saveCreds } = await useMultiFileAuthState(filename)
     const commandHander = new CommandHandler()
-    const { version, isLatest } = await fetchLatestBaileysVersion()
+    const { version } = await fetchLatestBaileysVersion()
+
     const client = makeWASocket({
         logger: P({ level: 'silent' }),
         printQRInTerminal: false,
@@ -229,23 +269,25 @@ export const menjadiBot = async (sock: WASocket, jid: string): Promise<WASocket>
         auth: state,
         version,
     })
+
     client.ev.on('creds.update', saveCreds)
     client.ev.on('messages.upsert', (m: { messages: WAMessage[]; type: MessageUpsertType }) => {
         commandHander.messageHandler(m, client)
     })
+
     client.ev.on('connection.update', async (update: ConnectionState) => {
         const { connection, lastDisconnect, qr } = update
         if (qr) {
             return sock.sendMessage(jid, {
                 image: await qrcode.toBuffer(qr, { scale: 8 }),
-                caption: 'Scan QR ini untuk jadi bot sementara\n\n1. Klik titik tiga di pojok kanan atas\n2. Klik Perangkat tertaut\n3. Klik Tautkan Perangkat\n4. Scan QR Ini',
+                caption: 'Scan this QR code to link as a temporary bot:\n\n1. Open WhatsApp > Menu > Linked Devices\n2. Tap "Link a Device"\n3. Scan this QR',
             })
         }
         if (connection === 'open') {
-            client.sendMessage(jid, { text: 'Client terhubung' })
+            client.sendMessage(jid, { text: '✅ Client connected' })
         }
         if (connection === 'close') {
-            if ((lastDisconnect.error as Boom)?.output?.statusCode !== DisconnectReason.loggedOut) {
+            if ((lastDisconnect?.error as Boom)?.output?.statusCode !== DisconnectReason.loggedOut) {
                 menjadiBot(sock, jid)
             } else {
                 try {
@@ -255,5 +297,6 @@ export const menjadiBot = async (sock: WASocket, jid: string): Promise<WASocket>
         }
         console.log(chalk.whiteBright('├'), chalk.keyword('aqua')('[  STATS  ]'), `Connection : ${update?.connection}`)
     })
+
     return client
-}
+    }
