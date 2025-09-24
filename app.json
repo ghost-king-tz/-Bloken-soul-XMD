@@ -1,0 +1,49 @@
+{
+    "name": "bot-wa",
+    "description": "This app does one little thing, and does it well.",
+    "repository": "https://github.com/Paiiss/bot-wa",
+    "logo": "https://i.ibb.co/mzcSXdy/koboo.png",
+    "success_url": "/",
+    "env": {
+        "MONGODB_URL": {
+            "description": "Mongo DB url (required)",
+            "value": "mongodb+srv://allen:allen@allen-cluster.yx9pwer.mongodb.net/wa-bot"
+        },
+        "PREFIX": {
+            "description": "Prefix of bot",
+            "value": "!"
+        },
+        "LOLHUMAN_KEY": {
+            "description": "LoL Human Apikey (https://api.lolhuman.xyz/)",
+            "value": "apikey"
+        },
+        "GROUP_ID": {
+            "description": "For send bot report",
+            "value": "6285805609094-1635319627@​g.us"
+        },
+        "BOT_NAME": {
+            "description": "Bot Name",
+            "value": "Allen Bot"
+        },
+        "TIME_ZONE": {
+            "description": "Time Zone Bot",
+            "value": "Asia/Jakarta"
+        },
+        "FOOTER": {
+            "description": "Footer of bot",
+            "value": "AllenBot • Paiiss"
+        },
+        "LINK_GROUP": {
+            "description": "Link Your Group Support",
+            "value": "https://chat.whatsapp.com/CktCFlTbTiMLq5K4fgIidd"
+        }
+    },
+    "formation": {
+        "web": {
+            "quantity": 1,
+            "size": "free"
+        }
+    },
+    "image": "heroku/nodejs",
+    "stack": "container"
+}

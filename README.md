@@ -1,79 +1,67 @@
-![TypingSVG](https://readme-typing-svg.demolab.com?font=Source+Code+Pro&size=40&duration=3000&pause=700&color=00CED1&center=true&vCenter=true&width=1000&height=90&lines=BROKEN+ＳＯＵＬ:;🚀+ＦＡＳＴ,+ＳＴＡＢＬＥ+＆+ＰＯＷＥＲＦＵＬ+🚀;🔒+MULT_DEVICE+🔒;🤖+ＤＥＶ+ＢＹ+𝐆𝐇𝐎𝐒𝐓+𝐊𝐈𝐍𝐆+🤖)
-
-<img src="https://i.postimg.cc/JstBmFDV/image.png" width="80%" style="display: block; margin: auto;" />
-
----
-
-🔥 Step 1: Clone the Repository
-
-```bash
-git clone https://github.com/ghost-king-tz/-Bloken-soul-XMD.git
-cd Bloken-soul-XMD
-```
-
----
-
-🔧 Step 2: Install Dependencies
-
-```bash
-npm install
-```
-
----
-
-⚙️ Step 3: Edit Settings
-
-- Open `settings.js` or `.env`  
-- Add your WhatsApp number  
-- Pair code will be sent directly — *no QR required*
-
----
-
-▶️ Step 4: Run the Bot
-
-```bash
-node index.js
-```
-
-Bot will auto-send pairing code to your WhatsApp.
-
----
-
-🌐 Deploy to Hosting Panel (Free)
-
 <div align="center">
-  <a href="https://bot-hosting.net/">
-    <img src="https://img.shields.io/badge/Deploy%20Broken%20Soul%20XMD-Panel-blue?style=for-the-badge&logo=vercel" width="250" /></a>
+<img src="https://i.ibb.co/mzcSXdy/koboo.png" width="150" height="150" border="0" alt="PFP">
+
+# Allen Bot Whatsapp Multi Device
+
+### Allen x Kobo
+
+<p align="center">
+  <a href="https://github.com/Paiiss"><img title="Author" src="https://img.shields.io/badge/Author-Paiiss-yellow.svg?style=for-the-badge&logo=github" /></a>
+</p>
+
+## [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/) [![NodeJS](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/) ![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
+
+[![](https://img.shields.io/github/license/Paiiss/bot-wa)](https://github.com/Paiiss/bot-wa/blob/master/LICENSE) [![](https://img.shields.io/github/repo-size/Paiiss/bot-wa)](https://github.com/Paiiss/bot-wa/) [![](https://img.shields.io/github/forks/paiiss/bot-wa.svg)](https://github.com/Paiiss/bot-wa/network/members)
+
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/Paiiss/bot-wa/)
+
+Lightweight WhatsApp Bot & 100+ features
+
 </div>
 
----
-
-💎 Bot Features
-
-- 💬 AI Chat with Smart Reply  
-- 🧼 Antilink System  
-- 🎶 Music & Video Download  
-- 👀 Auto Status Viewer  
-- 📡 Ping / Alive Checks  
-- ⚡ Fast + Secure Code-Pairing  
-- 🔄 Auto Reconnect & Stable Runtime  
+## ✨ Highlights
 
 ---
 
-👑 Developer Info
+-   Written in [TypeScript](https://www.typescriptlang.org/)
+-   Has a plugin that makes it easier to condition the user
+-   Easy to maintenace without turning off the bot
+-   Made with Baileys - MD (Best Library right now)
+-   Has anti nsfw and NSFW detection features
+-   Using mongodb atlas (cluster example is in [app.json](https://github.com/Paiiss/bot-wa/blob/master/app.json))
+-   Suitable for those who want to learn Typescript programming
 
-- *Bot Name:* Broken Soul XMD  
-- *Owner:* 𝔅𝔯𝔬𝔨𝔢𝔫 𝕊𝕠𝕦𝕩  
-- *Repo:* [GitHub](https://github.com/ghost-king-tz/-Bloken-soul-XMD)
+## 🦎 Self-Hosting
+
+-   See the [Self-Hosting Guide](https://github.com/Paiiss/bot-wa/blob/master/Self-Hosting.md)
+-   See the [Heroku Deploy Guide](https://github.com/Paiiss/bot-wa/blob/master/Self-Heroku.md)
+
+## 📄 License
+
+-   Using [Apache License 2.0 license](https://github.com/Paiiss/bot-wa/blob/master/LICENSE)
+
+## 📑 FAQ
+
+-   read the FAQ [here](https://github.com/Paiiss/bot-wa/blob/master/FAQ.md)
+
+## 💪 Contributing
 
 ---
 
-⭐ Enjoy & Share
+-   Feel free to open an issue regarding any issue or if you have any feature requests
+-   Make sure to follow the ESLint Rules while editing the code and run `npm run prettier-format` before opening PRs
+-   If you want to contribute
 
-If you love this bot, *star the repo* and share the power!
+    1. Fork this repository
+    2. edit/change what you want, for example you want to add features/fix bugs
+    3. Test first
+    4. You can submit a pull request
+    5. If it accepts then delete the old fork and the new fork if you want to pull the request again
 
----
+## 🌐 Join Us
 
-> 💬 *Crafted with heart by* *ＢＲＯＫＥＮ－ＳＯＵＬ＋ＸＭＤ*  
-> 🚀 *Built for speed, stability, and smart automation*  
-> 🤖 *Unleash the ultimate panel bot experience*
+### Whatsapp Group
+
+[![WhatsApp](https://img.shields.io/badge/WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://chat.whatsapp.com/CktCFlTbTiMLq5K4fgIidd)
+
+$$ Allen BotWhatsappMD $$
