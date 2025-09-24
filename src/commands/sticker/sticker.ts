@@ -15,8 +15,8 @@ export default {
             const data = {
                 image: `data:image/jpeg;base64,${file.toString('base64')}`,
                 stickerMetadata: {
-                    pack: 'AllenBOT',
-                    author: 'created by @mfa_daffa',
+                    pack: '𝐒𝐏𝐄𝐂𝐓𝐑𝐀-𝐕𝟏',
+                    author: 'created by @Ghodt_King',
                     keepScale: true,
                     circle: false,
                     removebg: false,
@@ -29,8 +29,8 @@ export default {
             const data = {
                 file: `data:video/mp4;base64,${file.toString('base64')}`,
                 stickerMetadata: {
-                    pack: 'AllenBOT',
-                    author: 'created by @mfa_daffa',
+                    pack: '𝐒𝐏𝐄𝐂𝐓𝐑𝐀-𝐕𝟏',
+                    author: 'created by @Ghost_King',
                     keepScale: true,
                 },
                 processOptions: {
