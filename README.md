@@ -1,7 +1,7 @@
 # 𝐒𝐏𝐄𝐂𝐓𝐑𝐀-𝐕𝟏
 <a><img src='https://i.imgur.com/LyHic3i.gif'/></a><a><img src='https://i.imgur.com/LyHic3i.gif'/></a>
 <p align="center"> 
-<u>⚡ A simple WhatsApp Multi Device Bot Coded By 𝐆𝐇𝐎𝐒𝐓 𝐊𝐈𝐍𝐆 ⚡</u>
+<u> A simple WhatsApp Multi Device Bot Dev 𝐆𝐇𝐎𝐒𝐓 𝐊𝐈𝐍𝐆</u>
 </p>
 <p align="center">
 <img src="https://files.catbox.moe/la2zx7.jpg"/>       
@@ -32,7 +32,6 @@
 3. **Deploy on [BOT HOSTING PANEL(DISCORD)](https://bot-hosting.net)**
 3. **Deploy on [KATBUMP PANEL(DISCORD)](https://dashboard.katabump.com/auth/login)**
 8. **You can visit Bot whatsapp channel [BY CLICKING HERE]()**
-9. **All Tutorials [Here]()**
 
 <a><img src='https://i.imgur.com/LyHic3i.gif'/></a><a><img src='https://i.imgur.com/LyHic3i.gif'/></a>
 
