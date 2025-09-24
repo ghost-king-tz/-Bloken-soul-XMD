@@ -1,6 +1,6 @@
-![TypingSVG](https://readme-typing-svg.demolab.com?font=Source+Code+Pro&size=40&duration=3000&pause=700&color=00CED1&center=true&vCenter=true&width=1000&height=90&lines=BROKEN+ＳＯＵＬ:;🚀+ＦＡＳＴ,+ＳＴＡＢＬＥ+＆+ＰＯＷＥＲＦＵＬ+🚀;🔒+ＣＯＤＥ－ＰＡＩＲＩＮＧ+🔒;🤖+ＤＥＶ+ＢＹ+𝔅𝔯𝔬𝔨𝔢𝔫+𝕊𝕠𝕦𝕝+🤖)
+![TypingSVG](https://readme-typing-svg.demolab.com?font=Source+Code+Pro&size=40&duration=3000&pause=700&color=00CED1&center=true&vCenter=true&width=1000&height=90&lines=BROKEN+ＳＯＵＬ:;🚀+ＦＡＳＴ,+ＳＴＡＢＬＥ+＆+ＰＯＷＥＲＦＵＬ+🚀;🔒+ＣＯＤＥ－ＰＡＩＲＩＮＧ+🔒;🤖+ＤＥＶ+ＢＹ+𝐆𝐇𝐎𝐒𝐓+𝐊𝐈𝐍𝐆+🤖)
 
-<img src="https://i.postimg.cc/JstBmFDV/image.png" width="100%" style="display: block; margin: auto;" />
+<img src="https://i.postimg.cc/JstBmFDV/image.png" width="99%" style="display: block; margin: auto;" />
 
 ---
 
