@@ -31,7 +31,7 @@
 3. **Deploy on [TALKDROVE](https://host.talkdrove.com)**
 3. **Deploy on [BOT HOSTING PANEL(DISCORD)](https://bot-hosting.net)**
 3. **Deploy on [KATBUMP PANEL(DISCORD)](https://dashboard.katabump.com/auth/login)**
-8. **You can visit Bot whatsapp channel [BY CLICKING HERE]()**
+8. **You can visit Bot whatsapp channel [BY CLICKING HERE](https://whatsapp.com/channel/0029VbAvB6k9sBI7O0j74q2N)**
 
 <a><img src='https://i.imgur.com/LyHic3i.gif'/></a><a><img src='https://i.imgur.com/LyHic3i.gif'/></a>
 
