@@ -9,11 +9,11 @@ export default {
     aliases: ['takes', 'curi', 'tsticker'],
     category: 'Sticker',
     description: 'Sticker Maker',
-    use: `Ex: %p%takesticker 𝐒𝐏𝐄𝐂𝐓𝐑𝐀-𝐕𝟏|Pais`,
+    use: `Ex: %p%takesticker 𝐒𝐏𝐄𝐂𝐓𝐑𝐀-𝐕𝟏|Ghost_King`,
     callback: async ({ msg, client, message, shortMessage, User, args }) => {
         let arg = args.join(' ')
         let pack = arg.split('|')[0] || '𝐒𝐏𝐄𝐂𝐓𝐑𝐀-𝐕𝟏'
-        let author = arg.split('|')[1] || 'created by @mfa_daffa'
+        let author = arg.split('|')[1] || 'created by @ghost_King'
         const file = (await msg.download()) || (msg.quoted && (await msg.quoted.download()))
         console.log(msg)
         if (msg.typeCheck.isQuotedSticker) {
@@ -21,7 +21,7 @@ export default {
                 image: `data:image/jpeg;base64,${file.toString('base64')}`,
                 stickerMetadata: {
                     pack: User.premium ? pack : '𝐒𝐏𝐄𝐂𝐓𝐑𝐀-𝐕𝟏',
-                    author: User.premium ? author : 'created by @mfa_daffa',
+                    author: User.premium ? author : 'created by @Ghost_King',
                     keepScale: true,
                     circle: false,
                     removebg: false,
