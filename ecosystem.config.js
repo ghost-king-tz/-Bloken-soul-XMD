@@ -1,16 +1,15 @@
 module.exports = {
-    apps: [
-        {
-            name: 'allen',
-            script: "npm",
-            automation: false,
-            args: "run pm2",
-            env: {
-                NODE_ENV: "development"
-            },
-            env_production: {
-                NODE_ENV: "production"
-            }
-        },
-    ],
+  apps: [
+    {
+      name: "𝐒𝐏𝐄𝐂𝐓𝐑𝐀-𝐕𝟏",
+      script: "npm",
+      args: "run pm2",
+      env: {
+        NODE_ENV: "development"
+      },
+      env_production: {
+        NODE_ENV: "production"
+      }
+    }
+  ]
 };
