@@ -1,8 +1,8 @@
 {
-    "name": "bot-wa",
+    "name": "spectra-v1",
     "description": "This app does one little thing, and does it well.",
-    "repository": "https://github.com/Paiiss/bot-wa",
-    "logo": "https://i.ibb.co/mzcSXdy/koboo.png",
+    "repository": "https://github.com/ghost-king-tz/spectra-v1",
+    "logo": "https://i.ibb.co/2qS7x7m/spectra-v1-logo.png",
     "success_url": "/",
     "env": {
         "MONGODB_URL": {
@@ -19,23 +19,23 @@
         },
         "GROUP_ID": {
             "description": "For send bot report",
-            "value": "6285805609094-1635319627@​g.us"
+            "value": "255719632816@s.whatsapp.net"
         },
         "BOT_NAME": {
             "description": "Bot Name",
-            "value": "Allen Bot"
+            "value": "𝐒𝐏𝐄𝐂𝐓𝐑𝐀-𝐕𝟏"
         },
         "TIME_ZONE": {
             "description": "Time Zone Bot",
-            "value": "Asia/Jakarta"
+            "value": "Africa/Dar_es_Salaam"
         },
         "FOOTER": {
             "description": "Footer of bot",
-            "value": "AllenBot • Paiiss"
+            "value": "𝐒𝐏𝐄𝐂𝐓𝐑𝐀-𝐕𝟏 • Ghost King"
         },
         "LINK_GROUP": {
             "description": "Link Your Group Support",
-            "value": "https://chat.whatsapp.com/CktCFlTbTiMLq5K4fgIidd"
+            "value": "https://chat.whatsapp.com/Kw6Iewqzg3bJvIhQlvnp4l?mode=ems_copy_t"
         }
     },
     "formation": {
