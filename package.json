@@ -29,7 +29,7 @@
   "license": "Apache-2.0",
   "description": "",
   "dependencies": {
-    "@adiwajshing/baileys": "https://github.com/adiwajshing/baileys.git",
+    "@adiwajshing/baileys": "github.com/adiwajshing/baileys.git",
     "@hapi/boom": "^9.1.4",
     "@types/glob": "^7.2.0",
     "@types/qrcode": "^1.4.2",
