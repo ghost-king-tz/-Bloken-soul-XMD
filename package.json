@@ -1,65 +1,65 @@
 {
-    "name": "bot-wa",
-    "version": "2.6.9",
-    "scripts": {
-        "start:dev": "nodemon -e ts,tsx --exec \"cls & ts-node --project ./tsconfig.json -r tsconfig-paths/register src/main.ts\"",
-        "start": "ts-node --project ./tsconfig.json -r tsconfig-paths/register src/main.ts",
-        "pm2": "ts-node --project ./tsconfig.json -r tsconfig-paths/register src/main.ts",
-        "server": "ts-node --project ./tsconfig.json -r tsconfig-paths/register src/main.ts --server"
-    },
-    "homepage": "https://github.com/Paiiss/bot-wa/#readme",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/Paiiss/bot-wa.git"
-    },
-    "bugs": {
-        "url": "https://github.com/Paiiss/bot-wa/issues"
-    },
-    "keywords": [
-        "Bot",
-        "wa-bot",
-        "baileys",
-        "websocket",
-        "whatsapp",
-        "sticker"
-    ],
-    "author": {
-        "name": "Paiiss"
-    },
-    "license": "Apache License 2.0",
-    "description": "",
-    "dependencies": {
-        "@adiwajshing/baileys": "github:adiwajshing/baileys",
-        "@hapi/boom": "^9.1.4",
-        "@types/glob": "^7.2.0",
-        "@types/qrcode": "^1.4.2",
-        "axios": "^0.24.0",
-        "bluebird": "^3.7.2",
-        "chalk": "^4.1.2",
-        "cheerio": "^1.0.0-rc.10",
-        "crypto": "^1.0.1",
-        "express": "^4.18.1",
-        "file-type": "^17.1.1",
-        "form-data": "^4.0.0",
-        "glob": "^7.2.0",
-        "human-readable": "^0.2.1",
-        "knex": "^1.0.1",
-        "moment": "^2.29.3",
-        "moment-timezone": "^0.5.34",
-        "mongoose": "^6.7.2",
-        "ms": "^2.1.3",
-        "node-cron": "^3.0.0",
-        "node-fetch": "^2.6.7",
-        "pino": "^7.6.2",
-        "qrcode": "^1.5.0",
-        "qrcode-terminal": "^0.12.0",
-        "uuid": "^8.3.2",
-        "youtubei": "^0.0.1-rc.27"
-    },
-    "devDependencies": {
-        "dotenv": "^10.0.0",
-        "ts-node": "^10.4.0",
-        "tsconfig-paths": "^3.12.0",
-        "typescript": "^4.5.4"
-    }
+  "name": "𝐒𝐏𝐄𝐂𝐓𝐑𝐀-𝐕𝟏",
+  "version": "2.6.9",
+  "scripts": {
+    "start:dev": "nodemon -e ts,tsx --exec \"cls & ts-node --project ./tsconfig.json -r tsconfig-paths/register src/main.ts\"",
+    "start": "ts-node --project ./tsconfig.json -r tsconfig-paths/register src/main.ts",
+    "pm2": "ts-node --project ./tsconfig.json -r tsconfig-paths/register src/main.ts",
+    "server": "ts-node --project ./tsconfig.json -r tsconfig-paths/register src/main.ts --server"
+  },
+  "homepage": "https://github.com/ghost-king-tz/𝐒𝐏𝐄𝐂𝐓𝐑𝐀-𝐕𝟏/#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ghost-king-tz/𝐒𝐏𝐄𝐂𝐓𝐑𝐀-𝐕𝟏.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ghost-king-tz/𝐒𝐏𝐄𝐂𝐓𝐑𝐀-𝐕𝟏/issues"
+  },
+  "keywords": [
+    "Bot",
+    "wa-bot",
+    "baileys",
+    "websocket",
+    "whatsapp",
+    "sticker"
+  ],
+  "author": {
+    "name": "𝐆𝐇𝐎𝐒𝐓 𝐊𝐈𝐍𝐆"
+  },
+  "license": "Apache License 2.0",
+  "description": "",
+  "dependencies": {
+    "@adiwajshing/baileys": "https://github.com/adiwajshing/baileys.git",
+    "@hapi/boom": "^9.1.4",
+    "@types/glob": "^7.2.0",
+    "@types/qrcode": "^1.4.2",
+    "axios": "^0.24.0",
+    "bluebird": "^3.7.2",
+    "chalk": "^4.1.2",
+    "cheerio": "^1.0.0-rc.10",
+    "crypto": "^1.0.1",
+    "express": "^4.18.1",
+    "file-type": "^17.1.1",
+    "form-data": "^4.0.0",
+    "glob": "^7.2.0",
+    "human-readable": "^0.2.1",
+    "knex": "^1.0.1",
+    "moment": "^2.29.3",
+    "moment-timezone": "^0.5.34",
+    "mongoose": "^6.7.2",
+    "ms": "^2.1.3",
+    "node-cron": "^3.0.0",
+    "node-fetch": "^2.6.7",
+    "pino": "^7.6.2",
+    "qrcode": "^1.5.0",
+    "qrcode-terminal": "^0.12.0",
+    "uuid": "^8.3.2",
+    "youtubei": "^0.0.1-rc.27"
+  },
+  "devDependencies": {
+    "dotenv": "^10.0.0",
+    "ts-node": "^10.4.0",
+    "tsconfig-paths": "^3.12.0",
+    "typescript": "^4.5.4"
+  }
 }
