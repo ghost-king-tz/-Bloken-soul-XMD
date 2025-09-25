@@ -1,19 +1,22 @@
 {
-    "compilerOptions": {
-        "esModuleInterop": true,
-        "resolveJsonModule": true,
-        "removeComments": true,
-        "moduleResolution": "Node",
-        "target": "ESNext",
-        "outDir": "dist",
-        "baseUrl": "./",
-        "experimentalDecorators": true,
-        "paths": {
-            "@utils*": ["src/utils", "src/utils*"],
-            "@constants": ["src/constants/index.ts"],
-            "@handlers*": ["src/handlers", "src/handlers*"],
-            "@schema": ["src/schema/index.ts"],
-            "@config": ["config/index.ts"]
-        }
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "removeComments": true,
+    "outDir": "dist",
+    "baseUrl": "./",
+    "experimentalDecorators": true,
+    "paths": {
+      "@utils/*": ["src/utils/*"],
+      "@constants": ["src/constants/index.ts"],
+      "@handlers/*": ["src/handlers/*"],
+      "@schema": ["src/schema/index.ts"],
+      "@config": ["config/index.ts"]
     }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
 }
