@@ -7,7 +7,6 @@ test
 config.json
 *-session.json
 session.json
-.gitignore
-src/commands/tes.ts
 index.js
 mysession
+src/commands/tes.ts
