@@ -1,0 +1,14 @@
+node_modules
+dist
+.vscode
+.env
+*.env
+*.json
+!.env.example
+test
+config.json
+*-session.json
+session.json
+src
+index.js
+mysession
