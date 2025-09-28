@@ -1,11 +1,15 @@
 window.onload = () => {
-let chat = document.querySelector('div.container-fluid')
-function addMsg(obj) {
-  let html = document.createElement('span')
-  html.className = 'msg'
-  html.innerHTML = obj
-  chat.appendChild(html)
-}
+  const chat = document.querySelector('div.container-fluid')
+  const trigger = document.getElementById('msgTrigger')
 
-window.onclick = () => addMsg(12)
+  function addMsg(text) {
+    const html = document.createElement('span')
+    html.className = 'msg'
+    html.textContent = text
+    chat.appendChild(html)
+  }
+
+  if (trigger) {
+    trigger.addEventListener('click', () => addMsg('Hello from Spectra!'))
+  }
 }
