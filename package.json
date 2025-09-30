@@ -2,8 +2,9 @@
   "name": "SPECTRA-V1",
   "version": "2.6.9",
   "scripts": {
-    "start": "ts-node --project ./tsconfig.json -r tsconfig-paths/register src/main.ts",
-    "start:dev": "nodemon -e ts,tsx --exec \"ts-node --project ./tsconfig.json -r tsconfig-paths/register src/main.ts\""
+    "build": "tsc",
+    "start": "node dist/main.js",
+    "start:dev": "nodemon -e ts,tsx --exec \"ts-node --project ./tsconfig.json src/main.ts\""
   },
   "dependencies": {
     "@adiwajshing/baileys": "github.com/adiwajshing/baileys.git",
