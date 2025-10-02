@@ -1,6 +1,9 @@
 {
   "name": "SPECTRA-V1",
   "version": "2.6.9",
+  "engines": {
+    "node": "18.x"
+  },
   "scripts": {
     "build": "tsc",
     "start": "node dist/main.js",
