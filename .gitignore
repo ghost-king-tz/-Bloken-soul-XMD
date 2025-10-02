@@ -1,12 +1,10 @@
 node_modules
-package-lock.json
 dist
-.vscode
 .env
-test
+package-lock.json
+.vscode
+test/
 config.json
-*-session.json
-session.json
-index.js
+*.json
 mysession
-src/commands/tes.ts
+*.tsbuildinfo
