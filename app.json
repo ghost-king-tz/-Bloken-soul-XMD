@@ -1,43 +1,24 @@
 {
   "name": "spectra-v1",
-  "description": "This app does one little thing, and does it well.",
+  "description": "SPECTRA-V1 WhatsApp Bot",
   "repository": "https://github.com/ghost-king-tz/spectra-v1",
   "logo": "https://i.ibb.co/2qS7x7m/spectra-v1-logo.png",
   "success_url": "/",
   "env": {
-    "MONGODB_URL": {
-      "description": "Mongo DB url (required)",
-      "value": "mongodb+srv://ghostking:GHOSTKING100@ghostking.k1oj1d2.mongodb.net/wa-bot"
-    },
-    "PREFIX": {
-      "description": "Prefix of bot",
-      "value": "!"
-    },
-    "LOLHUMAN_KEY": {
-      "description": "LoL Human Apikey (https://api.lolhuman.xyz/)",
-      "value": "a7a9a1fc750264b40f6270aa"
-    },
-    "GROUP_ID": {
-      "description": "For send bot report",
-      "value": "255719632816@s.whatsapp.net"
+    "SESSION_ID": {
+      "description": "Encoded session string (required)",
+      "value": "your_base64_encoded_session_string"
     },
     "BOT_NAME": {
       "description": "Bot Name",
       "value": "𝐒𝐏𝐄𝐂𝐓𝐑𝐀-𝐕𝟏"
     },
     "TIME_ZONE": {
-      "description": "Time Zone Bot",
+      "description": "Time Zone",
       "value": "Africa/Dar_es_Salaam"
-    },
-    "FOOTER": {
-      "description": "Footer of bot",
-      "value": "𝐒𝐏𝐄𝐂𝐓𝐑𝐀-𝐕𝟏 • Ghost King"
-    },
-    "LINK_GROUP": {
-      "description": "Link Your Group Support",
-      "value": "https://chat.whatsapp.com/Kw6Iewqzg3bJvIhQlvnp4l?mode=ems_copy_t"
     }
-  },"formation": {
+  },
+  "formation": {
     "web": {
       "quantity": 1,
       "size": "free"
